@@ -50,7 +50,7 @@ class HtmlToPdf
 
         file_put_contents($htmlFile, $this->html);
 
-        $command = escapeshellcmd("$this->wkhtmltopdfPathwkhtmltopdfPath --enable-local-file-access --orientation $this->orientation --encoding utf-8 $htmlFile $pdfFile");
+        $command = escapeshellcmd("$this->wkhtmltopdfPath --enable-local-file-access --orientation $this->orientation --encoding utf-8 $htmlFile $pdfFile");
 
         exec($command, $output, $returnVar);
 
