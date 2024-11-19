@@ -12,6 +12,7 @@ class HtmlToPdf
     protected mixed $html;
     protected string $outputPath;
     protected string $orientation;
+    protected string $wkhtmltopdfPath;
 
     public function __construct($html, $outputPath = null)
     {
@@ -19,6 +20,7 @@ class HtmlToPdf
         $this->html = mb_convert_encoding($this->html, 'HTML-ENTITIES', 'UTF-8');
         $this->outputPath = $outputPath ?? config('pdf-generator.output_path');
         $this->orientation = config('pdf-generator.default_orientation') ?? 'portrait';
+        $this->wkhtmltopdfPath = config('pdf-generator.wkhtmltopdf_path') ?? '"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"';
     }
 
     /**
@@ -48,9 +50,14 @@ class HtmlToPdf
 
         file_put_contents($htmlFile, $this->html);
 
-        // Ajouter l'option --encoding utf-8
-        $command = escapeshellcmd("wkhtmltopdf --orientation $this->orientation --encoding utf-8 $htmlFile $pdfFile");
+        $command = escapeshellcmd("$this->wkhtmltopdfPathwkhtmltopdfPath --enable-local-file-access --orientation $this->orientation --encoding utf-8 $htmlFile $pdfFile");
+
         exec($command, $output, $returnVar);
+
+        dump("Command: $command");
+        exec($command, $output, $returnVar);
+        dump("Output:", $output);
+        dump("Return Code:", $returnVar);
 
         if ($returnVar !== 0) {
             throw new RuntimeException("wkhtmltopdf failed: " . implode("\n", $output));
