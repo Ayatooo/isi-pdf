@@ -1,0 +1,25 @@
+{
+    "name": "isi-pdf/pdf-generator",
+    "description": "A Laravel package for generating PDFs",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "IsiPdf\\PdfGenerator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ayatooo",
+            "email": "l.reynard@isi-dsi.fr"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IsiPdf\\PdfGenerator\\PdfGeneratorServiceProvider"
+            ]
+        }
+    }
+
+}
